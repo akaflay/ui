@@ -1,9 +1,14 @@
-# UI 
-This is a ui project created using react and redux
+# Application
+This project has basic setup that you can use to create a react application using react, redux, bootstrap.This project also contains a standart method of seperating different layers of the application.
 
+## Requirements
+1. node. Install from https://nodejs.org/en/download/
 
-#Document to set up a ReactJS Project
-https://hackernoon.com/react-app-from-scratch-d694300d1631
+## Running Project.
+1. npm install
+2. npm start
 
 ## Questions and Concerns
 https://better-coder.slack.com/
+
+
