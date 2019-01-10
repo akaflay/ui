@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetch, updateCurrent, reset} from "../action/action";
-import TodoItem from "./items"
+import Item from "./items"
 
 import {removeSingle} from '../action/action'
 
@@ -9,7 +9,7 @@ import {removeSingle} from '../action/action'
 class List extends Component {
 
     componentDidMount() {
-        this.props.fetchTodos();
+        this.props.fetch();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -18,7 +18,7 @@ class List extends Component {
 
     handleDeleteAll = (event) => {
         event.preventDefault();
-        this.props.resetTodos();
+        this.props.reset();
     }
 
     render() {
@@ -53,9 +53,9 @@ class List extends Component {
                     <tbody>
 
                     {
-                        this.props.todos.map((value) => {
-                            return (<TodoItem updateCurrent={this.props.updateCurrent}
-                                              deleteTodo={this.props.deleteTodo} key={value.id} {...value}/>);
+                        this.props.list.map((value,index) => {
+                            return (<Item updateCurrent={this.props.updateCurrent} index={index+1}
+                                              remove={this.props.removeSingle} key={value.studentId} {...value}/>);
                         })}
                     </tbody>
 
@@ -72,6 +72,6 @@ class List extends Component {
     }
 }
 
-const mapStateToProp = (state) => ({todos: state.lists, count: state.lists.length});
-const mapDispatchToProps = {fetchTodos: fetch, deleteTodo: removeSingle, updateCurrent, resetTodos: reset};
+const mapStateToProp = (state) => ({list: state.lists, count: state.lists.length});
+const mapDispatchToProps = { fetch, removeSingle, updateCurrent, reset};
 export default connect(mapStateToProp, mapDispatchToProps)(List);

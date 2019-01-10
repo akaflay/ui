@@ -9,13 +9,16 @@ export const removeItem = (id) => ({type: DELETE, payload: id});
 
 export const fetch = () => {
     return (dispatch) => {
-        get().then(list => dispatch(load(list)));
+        get().then((list) =>dispatch(load(list)));
     }
 };
 
 export const save = (name, count) => {
     return (dispatch) => {
-        create(name, count).then(lists => dispatch(add(lists)));
+        create(name, count).then((response) => {
+        name["studentId"]=response.response;
+        return dispatch(add(name));
+        });
     }
 };
 

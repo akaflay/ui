@@ -11,8 +11,8 @@ class Form extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.firstName.value = this.props.currentTodo.firstName;
-        this.lastName.value = this.props.currentTodo.lastName;
+        this.firstName.value = this.props.current.firstName;
+        this.lastName.value = this.props.current.lastName;
     }
 
 
@@ -26,7 +26,7 @@ class Form extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.saveTodos(this.props.currentTodo, this.props.count);
+        this.props.save(this.props.current, this.props.count);
         this.resetForm();
 
     };
@@ -46,10 +46,10 @@ class Form extends Component {
 
     };
     getSubmitBtnClassName = () => {
-        return ` btn ${(this.props.currentTodo.firstName.length <= 0 || this.props.currentTodo.lastName.length <= 0 ? 'btn-danger' : 'btn-success')}`;
+        return ` btn ${(this.props.current.firstName.length <= 0 || this.props.current.lastName.length <= 0 ? 'btn-danger' : 'btn-success')}`;
     };
     enableCancelButton = () => {
-        return (this.props.currentTodo.firstName.length >= 1 || this.props.currentTodo.lastName.length >= 1);
+        return (this.props.current.firstName.length >= 1 || this.props.current.lastName.length >= 1);
     };
 
     getCancelBtnClassName = () => {
@@ -75,8 +75,8 @@ class Form extends Component {
                 <button type="submit"
                         className={this.getSubmitBtnClassName()}
                         style={{margin: '1%'}}
-                        onClick={this.handleSubmit} disabled={!this.props.currentTodo.firstName ||
-                !this.props.currentTodo.lastName}>Submit
+                        onClick={this.handleSubmit} disabled={!this.props.current.firstName ||
+                !this.props.current.lastName}>Submit
                 </button>
 
                 <button type="button"
@@ -89,8 +89,8 @@ class Form extends Component {
     }
 }
 
-const mapDispatchToProps = {updateCurrent, saveTodos: save, resetTodos: reset};
-const mapStateToProp = (state) => ({currentTodo: state.currentTodo, count: state.lists.length, list: state.lists});
+const mapDispatchToProps = {updateCurrent,  save, reset};
+const mapStateToProp = (state) => ({current: state.current, count: state.lists.length, list: state.lists});
 export default connect(mapStateToProp,
     mapDispatchToProps)(Form);
 

@@ -1,16 +1,21 @@
 export const get = () => {
-    return new Promise((resolve, reject) => {
-        resolve([]);
-    });
+        return fetch("http://nepalthinktank.com/app/students/")
+            .then(response=>response.json());
 }
 
 export const create = (name, count) => {
-    return new Promise((resolve, reject) => {
-        resolve([{id: count + 1, firstName: name.firstName, lastName: name.lastName}]);
-    });
+const payload ={"firstName":name.firstName,"lastName":name.lastName};
+return fetch("http://nepalthinktank.com/app/students/",
+{
+method :"POST",
+body: JSON.stringify(payload),
+headers :{"Content-Type":"application/json"}
+}).then((response)=>response.json());
 }
 export const remove = (id = undefined) => {
-    return new Promise((resolve, reject) => {
-        id ? resolve() : resolve([]);
-    });
+    return fetch(`http://nepalthinktank.com/app/students/${id}`,
+    {
+    method :"DELETE",
+    headers :{"Content-Type":"application/json"}
+    }).then((response)=>response);
 }
