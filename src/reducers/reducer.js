@@ -5,12 +5,18 @@ import {RESET} from '../utils/Constants';
 
 const initialState = {
     lists: [],
-    currentTodo: {firstName: '', lastName: ''}
+    current: {firstName: '', lastName: ''}
 };
 
-const removeItemFromIndex = (state, index) => {
-    state.lists.splice(index, 1)
-    return state.lists;
+const removeItemFromIndex = (state, id) => {
+var index;
+var count=0;
+    state.lists.forEach((item)=>{
+    if(item.studentId===id) index=count;
+    count++;
+    })
+     state.lists.splice(index,1);
+     return state.lists;
 
 }
 
@@ -19,13 +25,13 @@ export default (state = initialState, action) => {
         case RESET:
             return (initialState);
         case ADD:
-            return ({...state, lists: state.lists.concat(action.payload), currentTodo: initialState.currentTodo});
+            return ({...state, lists:state.lists.concat(action.payload),current: initialState.current});
         case LOAD:
             return ({...state, lists: action.payload});
         case CURRENT_UPDATE:
-            return ({...state, currentTodo: action.payload});
+            return ({...state, current: action.payload});
         case DELETE:
-            return ({...state, lists: removeItemFromIndex(state, action.payload - 1)});
+            return ({...state, lists: removeItemFromIndex(state, action.payload )});
         default:
             return state;
 

@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 
-class TodoItem extends Component {
+class Item extends Component {
 
     handleDelete = (event, id) => {
         event.preventDefault();
-        this.props.deleteTodo(id);
+        this.props.remove(id);
 
     };
     handleEdit = (event, object) => {
         event.preventDefault();
-        this.props.deleteTodo(object.id);
+        this.props.remove(object.id);
         const obj = {firstName: object.firstName, lastName: object.lastName};
         this.props.updateCurrent(obj);
 
@@ -18,13 +18,12 @@ class TodoItem extends Component {
     render() {
         const overrideButton = {
             border: 'none',
-            background: 'transparent',
-            onmousemove: 'hand'
+            background: 'transparent'
         }
 
 
         return (<tr>
-            <th scope="row">{this.props.id}</th>
+            <th scope="row">{this.props.index}</th>
             <td> {this.props.firstName} </td>
             <td> {this.props.lastName} </td>
             <td>
@@ -32,7 +31,7 @@ class TodoItem extends Component {
                     <i className="far fa-edit "></i>
                 </button>
                 <button className="btn" style={overrideButton}
-                        onClick={(event) => this.handleDelete(event, this.props.id)}>
+                        onClick={(event) => this.handleDelete(event, this.props.studentId)}>
                     <i className="far fa-trash-alt"></i>
                 </button>
             </td>
@@ -40,4 +39,4 @@ class TodoItem extends Component {
     }
 }
 
-export default TodoItem;
+export default Item;
